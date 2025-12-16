@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const BACKEND_URL = axios.create({
-    baseURL: "https://todo-app-1-qgga.onrender.com/"
+    baseURL: "http://localhost:5000/api/v1/noteapp/"
 })
 
 export default BACKEND_URL
