@@ -19,7 +19,7 @@ const NoteProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/v1/noteapp/get-notes",
+        "https://todo-app-4-7og2.onrender.com/api/v1/noteapp/get-notes",
         { headers: getHeaders() }
       );
       const data = await res.json();
@@ -48,7 +48,7 @@ const NoteProvider = ({ children }) => {
         setToken, // 👈 expose setter
         createNote: async (note) => {
           const res = await fetch(
-            "http://localhost:5000/api/v1/noteapp/create-note",
+            "https://todo-app-4-7og2.onrender.com/api/v1/noteapp/create-note",
             {
               method: "POST",
               headers: getHeaders(),
