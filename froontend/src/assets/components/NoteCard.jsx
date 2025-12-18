@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { NoteContext } from "../../context/NoteContext";
 import "./NoteCard.css";
-import { toast } from "react-toastify";
 import { handleSuccess } from "../../utils";
-import { Delete, Edit, Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 
 function NoteCard({ note }) {
   const { deleteNote, updateNote } = useContext(NoteContext);
@@ -14,21 +13,23 @@ function NoteCard({ note }) {
   });
 
   const handleUpdate = () => {
-    updateNote(note._id, editData);
-    setIsEditing(false);
-    //toast.success("Note updated successfully!");
-    //handleSuccess("note updddddate");
-  };
+  if (!editData.title.trim() || !editData.content.trim()) {
+    handleSuccess("Title and content cannot be empty");
+    return;
+  }
+
+  updateNote(note._id, editData);
+  handleSuccess("Note updated successfully");
+  setIsEditing(false);
+};
+
+
+
 
   const handleDelete = () => {
-    // const confirmDelete = window.confirm(
-    //   "Are you sure you want to delete this note?"
-    // );
-    if (true) {
       deleteNote(note._id);
-      //toast.success("Note deleted successfully!");
-      handleSuccess("note delete");
-    }
+      handleSuccess("Note deleted successfully");
+
   };
 
   return (
@@ -55,15 +56,29 @@ function NoteCard({ note }) {
           />
 
           <div className="note-actions">
-            <button className="btn btn-save" onClick={handleUpdate}>
+            <button 
+            className="btn btn-save" 
+             disabled={
+    editData.title === note.title &&
+    editData.content === note.content
+  }
+            onClick={handleUpdate}
+            >
               Save
             </button>
+
             <button
               className="btn btn-cancel"
-              onClick={() => setIsEditing(false)}
+              onClick={() => {
+                setIsEditing(false);
+                setEditData({ title: note.title, content: note.content });
+              
+              }}
             >
               Cancel
             </button>
+
+
           </div>
         </>
       ) : (
@@ -86,13 +101,14 @@ function NoteCard({ note }) {
                 className="btn btn-edit"
                 onClick={() => setIsEditing(true)}
               >
-                <Edit />
+                <Edit size={15}
+                />
               </button>
               <button
                 className="btn btn-delete"
-                onClick={() => handleDelete(note._id)}
+                onClick={handleDelete}
               >
-                < Trash />
+                < Trash size={15} />
               </button>
             </div>
           </div>

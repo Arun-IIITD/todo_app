@@ -1,4 +1,3 @@
-import React from 'react';
 import NoteForm from '../assets/components/NoteForm';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

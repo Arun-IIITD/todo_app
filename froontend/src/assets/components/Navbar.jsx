@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BookOpen, Plus} from "lucide-react";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
 import { handleSuccess } from "../../utils";
 import CreateNoteModal from "./CreateNoteModal";

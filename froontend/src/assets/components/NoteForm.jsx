@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { NoteContext } from "../../context/NoteContext";
 import "./NoteForm.css";
 import { handleSuccess } from "../../utils";
@@ -24,7 +24,7 @@ function NoteForm({onSuccess}) {
 
   return (
     <div className="note-form-container">
-      <h2 className="note-form-title">Create a New Note</h2>
+      {/* <h2 className="note-form-title">Create a New Note</h2> */}
 
       <form onSubmit={handleSubmit} className="note-form">
         <input
