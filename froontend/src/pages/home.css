@@ -1,0 +1,59 @@
+/* home.css */
+
+/* Page wrapper */
+.home-page {
+  padding: 80px 24px 24px; /* top padding accounts for navbar height */
+  min-height: 100vh;
+  background-color: #0f172a; /* dark background */
+  color: #f8fafc; /* default text color */
+  box-sizing: border-box;
+}
+
+/* Header */
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+/* Logo / Welcome */
+.home-logo h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #a8acb0; /* light blue for visibility */
+  margin: 0;
+}
+
+/* Notes grid */
+.notes-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  font-size: 18px;
+  color: #94a3b8;
+  margin-top: 50px;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* account for navbar height */
+  font-size: 20px;
+  color: #f8fafc;
+}

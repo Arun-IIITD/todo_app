@@ -1,74 +1,69 @@
-//controllers -- all routes's logic will implement here
 const Note = require("../models/note_models");
 
-//CREATING NOTE
-const createNote = async(req, res) => {
+// ✅ CREATE NOTE
+const createNote = async (req, res) => {
+  try {
+    const { title, content } = req.body;
 
-    try {
-
-        const {title, content} = req.body;
-    if (!title || !content){
-        return res.status(400).json({message: "title and content are required"})
+    if (!title || !content) {
+      return res.status(400).json({ message: "title and content are required" });
     }
 
-   const newNote = new Note({title,content})
-   await newNote.save();
-   res.status(201).json(newNote)
+    const note = await Note.create({
+      title,
+      content,
+      userId: req.user.id   // ✅ FIXED
+    });
+    console.log("req.user in controller:", req.user);
 
+
+    res.status(201).json(note);
+
+  } catch (error) {
+    res.status(500).json({ messssage: error.message });
   }
-    catch(error) {
-        res.status(500).json({message: error.message})
-        
-    }
-
 };
 
+// ✅ GET ONLY LOGGED-IN USER NOTES
+const getAllNotes = async (req, res) => {
+  try {
+    const notes = await Note.find({
+      userId: req.user.id   // ✅ FIXED
+    });
 
-//GETTING ALL NOTES
-const getAllNotes = async(req,res) => {
+    res.status(200).json(notes);
 
-    try{
-        const notes = await Note.find().sort({createdAt:-1});
-        res.status(200).json(notes)
-    }
-    catch(error){
-         res.status(500).json({message: error.message})
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
+// ✅ UPDATE NOTE (OWNERSHIP CHECK)
+const updateNote = async (req, res) => {
+  const note = await Note.findById(req.params.id);
+  if (!note) return res.status(404).json({ message: "Note not found" });
 
-    }
-}
+  if (note.userId.toString() !== req.user.id)
+    return res.status(403).json({ message: "Not allowed" });
 
-//UPDATING ALL NOTES
-const updateNote = async(req,res) => {
-    try{
-        const {title,content} = req.body;
-        const updatedNote = await Note.findByIdAndUpdate(req.params.id,{title,content},{new:true})
-        if(!updatedNote){
-            return res.status(404).json({message:"Note not updated"})
-        }
-        res.status(200).json(updatedNote)
-        }
+  note.title = req.body.title;
+  note.content = req.body.content;
+  await note.save();
 
+  res.json(note);
+};
 
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-}
+// ✅ DELETE NOTE (OWNERSHIP CHECK)
+const deleteNote = async (req, res) => {
+  const note = await Note.findById(req.params.id);
+  if (!note) return res.status(404).json({ message: "Note not found" });
 
-//DELETE NOTE
-const deleteNote = async(req,res) => {
-    try {
-        const deletedNote = await Note.findByIdAndDelete(req.params.id)
-        if(!deletedNote){
-            return res.status(404).json({message: "note not deleted"})
-        }
-        res.status(200).json({message:"note deleted successfully"})
-    }
-    
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
-}
+  if (note.userId.toString() !== req.user.id)
+    return res.status(403).json({ message: "Not allowed" });
+
+  await note.deleteOne();
+  res.json({ message: "Note deleted" });
+};
 
 module.exports = {
   createNote,

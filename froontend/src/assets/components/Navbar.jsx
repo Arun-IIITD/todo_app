@@ -1,39 +1,76 @@
-import { Link, useLocation } from "react-router-dom";
-import { BookOpen } from "lucide-react";
-import React from 'react';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BookOpen, Plus} from "lucide-react";
+import { useContext, useState, useEffect } from "react";
+import "./navbar.css";
+import { handleSuccess } from "../../utils";
+import CreateNoteModal from "./CreateNoteModal";
 
 function Navbar() {
   const location = useLocation();
+  const [openCreateNote, setOpenCreateNote] = useState(false);
+
+  const navigate = useNavigate();
+  const [loggedInUser, setLoggedInUser] = useState("");
+
+  useEffect(() => {
+    setLoggedInUser(localStorage.getItem("loggedInUser"));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("loggedInUser");
+    handleSuccess("Logged out successfully");
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+  };
 
   return (
-    <nav className="bg-gray-900 text-white px-6 py-3 shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="navbar">
+      <div className="navbar-container">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <BookOpen className="w-7 h-7 text-blue-400" />
-          <span className=" text-2xl text-blue-400 tracking-wide">
-            NoteKeeper
-          </span>
+        <Link to="/home" className="navbar-logo">
+          <BookOpen className="logo-icon" />
+          <span className="logo-text">NoteKeeper</span>
         </Link>
 
-        {/* Links */}
-        <div className="space-x-6">
+        {/* Links and buttons */}
+        <div className="navbar-links">
           <Link
-            to="/"
-            className={`hover:text-blue-400 transition ${
-              location.pathname === "/" ? "text-blue-400 font-semibold" : "text-gray-300"
-            }`}
+            to="/home"
+            className={`nav-link ${location.pathname === "/home" ? "active" : ""}`}
           >
             Home
           </Link>
-          <Link
-            to="/create-note"
-            className={`hover:text-blue-400 transition ${
-              location.pathname === "/create" ? "text-blue-400 font-semibold" : "text-gray-300"
-            }`}
+
+          <button 
+          className= {`nav-link plus-btn ${openCreateNote ? "active" : ""}`}
+          onClick={() => setOpenCreateNote(true)}
+          title="Create Note"
           >
-            Create Note
-          </Link>
+            <Plus size={22}/>
+          </button>
+
+          {openCreateNote && (
+                <CreateNoteModal onClose={() => setOpenCreateNote(false)} />
+              )}
+
+
+          
+
+         
+
+
+
+         
+
+          {/* Logout */}
+          {loggedInUser && (
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

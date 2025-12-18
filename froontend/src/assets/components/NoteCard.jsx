@@ -1,53 +1,66 @@
-import React, { useContext, useState } from 'react'
-import { NoteContext } from '../../context/NoteContext'
+import React, { useContext, useState } from "react";
+import { NoteContext } from "../../context/NoteContext";
+import "./NoteCard.css";
+import { toast } from "react-toastify";
+import { handleSuccess } from "../../utils";
+import { Delete, Edit, Trash } from "lucide-react";
 
-function NoteCard({note}) {
-    const {deleteNote,updateNote}=useContext(NoteContext)
-    const [isEditing,setIsEditing]=useState(false)
-    const [editData,setEditData]=useState({
-        title:note.title,
-        content:note.content
-    })
+function NoteCard({ note }) {
+  const { deleteNote, updateNote } = useContext(NoteContext);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({
+    title: note.title,
+    content: note.content,
+  });
 
-    const handleUpdate=()=>{
-        updateNote(note._id,editData)
-        setIsEditing(false)
+  const handleUpdate = () => {
+    updateNote(note._id, editData);
+    setIsEditing(false);
+    //toast.success("Note updated successfully!");
+    //handleSuccess("note updddddate");
+  };
+
+  const handleDelete = () => {
+    // const confirmDelete = window.confirm(
+    //   "Are you sure you want to delete this note?"
+    // );
+    if (true) {
+      deleteNote(note._id);
+      //toast.success("Note deleted successfully!");
+      handleSuccess("note delete");
     }
+  };
+
   return (
-     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg transition-all p-5 flex flex-col">
+    <div className="note-card">
       {isEditing ? (
         <>
           {/* Edit Mode */}
           <input
             type="text"
-            className="border rounded-lg p-2 w-full mb-3 
-                       focus:ring-2 focus:ring-blue-500 outline-none 
-                       bg-white dark:bg-gray-700 
-                       text-gray-900 dark:text-white"
+            className="note-input"
             value={editData.title}
-            onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+            onChange={(e) =>
+              setEditData({ ...editData, title: e.target.value })
+            }
           />
+
           <textarea
-            className="border rounded-lg p-2 w-full mb-3 
-                       focus:ring-2 focus:ring-blue-500 outline-none 
-                       bg-white dark:bg-gray-700 
-                       text-gray-900 dark:text-white"
             rows="3"
+            className="note-textarea"
             value={editData.content}
             onChange={(e) =>
               setEditData({ ...editData, content: e.target.value })
             }
           />
-          <div className="flex gap-2">
-            <button
-              onClick={handleUpdate}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-lg transition"
-            >
+
+          <div className="note-actions">
+            <button className="btn btn-save" onClick={handleUpdate}>
               Save
             </button>
             <button
+              className="btn btn-cancel"
               onClick={() => setIsEditing(false)}
-              className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-1.5 rounded-lg transition"
             >
               Cancel
             </button>
@@ -56,16 +69,11 @@ function NoteCard({note}) {
       ) : (
         <>
           {/* View Mode */}
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {note.title}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-2 flex-1">
-            {note.content}
-          </p>
+          <h2 className="note-title">{note.title}</h2>
+          <p className="note-content">{note.content}</p>
 
-          {/* Footer: date + actions */}
-          <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-            <span>
+          <div className="note-footer">
+            <span className="note-date">
               {new Date(note.createdAt).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "short",
@@ -73,25 +81,25 @@ function NoteCard({note}) {
               })}
             </span>
 
-            <div className="flex gap-2">
+            <div className="note-actions">
               <button
+                className="btn btn-edit"
                 onClick={() => setIsEditing(true)}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg transition"
               >
-                Edit
+                <Edit />
               </button>
               <button
-                onClick={() => deleteNote(note._id)}
-                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition"
+                className="btn btn-delete"
+                onClick={() => handleDelete(note._id)}
               >
-                Delete
+                < Trash />
               </button>
             </div>
           </div>
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default NoteCard
+export default NoteCard;

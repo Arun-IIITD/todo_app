@@ -1,9 +1,40 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  --bg-color: #f5f5f5;
+  --text-color: #222;
+  --card-bg: #fff;
+  --btn-bg: #007bff;
+  --btn-text: #fff;
 }
+
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #eee;
+  --card-bg: #1e1e1e;
+  --btn-bg: #1f80e0;
+  --btn-text: #fff;
+}
+
+/* Use variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.note-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
 
 .logo {
   height: 6em;
@@ -11,6 +42,9 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -40,3 +74,4 @@
 .read-the-docs {
   color: #888;
 }
+

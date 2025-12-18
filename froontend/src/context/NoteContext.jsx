@@ -1,69 +1,68 @@
-import React, { useEffect,useState } from "react";
-import { createContext } from "react";
-import BACKEND_URL from "../api/url";
+import { createContext, useEffect, useState } from "react";
 
 export const NoteContext = createContext();
-//const backed_url = "https://localhost:5000/api/v1/noteapp"
-export const NoteProvider = ({children}) => {
 
-    const [notes,setNotes] = useState([]);
-    const [loading, setLoading] = useState(true);
+const NoteProvider = ({ children }) => {
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-//FETCH ALL NOTES
-const getNotes = async() => {
+  // ✅ token as state
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  // Helper headers
+  const getHeaders = () => ({
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  });
+
+  const getNotes = async () => {
     setLoading(true);
     try {
-        const response = await BACKEND_URL.get("/get-notes");
-        setNotes(response.data);
-    } catch (error) {
-        console.error("Error fetchiiiing notes:", error);
+      const res = await fetch(
+        "http://localhost:5000/api/v1/noteapp/get-notes",
+        { headers: getHeaders() }
+      );
+      const data = await res.json();
+      setNotes(data);
+    } catch (err) {
+      console.error(err);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-}
+  };
 
-useEffect(()=>{
-    getNotes();
-},[])
+  // 🔥 THIS will now re-run after login
+  useEffect(() => {
+    if (token) {
+      getNotes();
+    } else {
+      setNotes([]);
+    }
+  }, [token]);
 
-
-
-
-//creating notes
-const createNote = async(note) => {
-
-     const res=await BACKEND_URL.post("/create-note",note)
-    setNotes([res.data,...notes])
-
-
-}
-
-
-//updating notes
-const updateNote = async(id, updateNote) => {
-    const res=await BACKEND_URL.put(`/update-note/${id}`,updateNote)
-    setNotes(notes.map((note)=>(note._id===id ? res.data : note)))
-}
-
-//deleting notes
-const deleteNote = async(id) => {
-    await BACKEND_URL.delete(`/delete-note/${id}`)
-    setNotes(notes.filter((note)=>(note._id!==id)))
-}
-
-
-return (
-    <NoteContext.Provider value={{notes,loading,createNote,updateNote,deleteNote}}>
-
-        {children}
-
+  return (
+    <NoteContext.Provider
+      value={{
+        notes,
+        loading,
+        setToken, // 👈 expose setter
+        createNote: async (note) => {
+          const res = await fetch(
+            "http://localhost:5000/api/v1/noteapp/create-note",
+            {
+              method: "POST",
+              headers: getHeaders(),
+              body: JSON.stringify(note),
+            }
+          );
+          const data = await res.json();
+          setNotes((prev) => [data, ...prev]);
+        },
+      }}
+    >
+      {children}
     </NoteContext.Provider>
+  );
+};
 
-)
-
-
-
-
-
-}
-
+export default NoteProvider;

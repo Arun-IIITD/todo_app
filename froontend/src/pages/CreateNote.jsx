@@ -1,10 +1,26 @@
-import React from 'react'
-import NoteForm from '../assets/components/NoteForm'
+import React from 'react';
+import NoteForm from '../assets/components/NoteForm';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Note.css"
 
 function CreateNote() {
   return (
-    <div className='flex items-center justify-center h-screen bg-gray-900'><NoteForm/></div>
-  )
+    <div className='create-note-page'>
+      <NoteForm />
+      <ToastContainer 
+        position="top-center" 
+        autoClose={2000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover
+      />
+    </div>
+  );
 }
 
-export default CreateNote
+export default CreateNote;
