@@ -16,6 +16,6 @@
     "express": "^5.2.1",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^8.20.2"
+    "mongoose": "^8.20.4"
   }
 }
