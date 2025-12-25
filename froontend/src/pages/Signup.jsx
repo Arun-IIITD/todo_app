@@ -38,15 +38,27 @@ function Signup() {
       );
 
       const result = await response.json();
-      const { success, message, error } = result;
+      //const { success, message, error } = result;
 
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => navigate("/login"), 1000);
-      } else if (error) {
-        handleError(error?.details?.[0]?.message || message);
-      }
-    } catch (err) {
+    //   if (success) {
+    //     handleSuccess(message);
+    //     setTimeout(() => navigate("/login"), 1000);
+    //   } else if (error) {
+    //     handleError(error?.details?.[0]?.message || message);
+    //   }
+    // } 
+
+    const {messsage} = result;
+
+    if (!response.ok){
+      handleError(messsage || "user alreaaaady exists");
+      return;
+    }
+
+    handleSuccess(messsage);
+    setTimeout(() => navigate("/login"), 1000);
+    
+  }catch (err) {
       handleError("Something went wrong");
     }
   };

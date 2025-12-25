@@ -1,6 +1,5 @@
 import axios from "axios"
 //https://todo-app-4-7og2.onrender.com/
-//http://localhost:5000/
 
 const token = JSON.parse(localStorage.getItem("user"))?.token;
 
