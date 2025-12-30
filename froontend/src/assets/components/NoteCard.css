@@ -1,0 +1,184 @@
+.note-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  max-height: 220px;       
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.note-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f8fafc;             /* text color */
+  margin-bottom: 8px;
+  text-transform: uppercase;
+
+  /* Gray background */
+  background-color: #475569;  /* adjust as needed */
+  padding: 4px 8px;           /* space around text */
+  border-radius: 6px;          /* rounded corners */
+  display: inline-block;       /* shrink background to text width */
+}
+
+.note-content {
+  /* flex: 1; */
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+  overflow: hidden;
+  flex: 1; /* fill available space */
+  overflow-y: auto;
+}
+
+.note-content ul {
+  padding-left: 20px; /* indent bullets */
+  margin: 0;
+  list-style-type: disc; /* standard bullet */
+}
+
+.note-content li {
+  margin-bottom: 6px; /* spacing between bullets */
+}
+
+
+.note-input,
+.note-textarea {
+  /* width: 10%; */
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  /* background-color: #020617; */
+  color: #f8fafc;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.note-input:focus,
+.note-textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4);
+}
+
+/* Buttons */
+.note-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+/* Button variants */
+.btn-save {
+  background-color: #22c55e;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #16a34a;
+}
+
+.btn-cancel {
+  background-color: #64748b;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #475569;
+}
+
+.btn-edit {
+  background-color: #eab308;
+  color: #020617;
+}
+
+.btn-edit:hover {
+  background-color: #ca8a04;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+
+/* Footer */
+.note-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 0px;
+}
+
+.note-card.completed {
+  border-left: 5px solid #22c55e;
+  opacity: 0.85;
+}
+
+.note-card.completed .note-title {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.note-card.completed .note-content {
+  color: #9ca3af;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .note-card {
+    padding: 18px;
+  }
+}
+
+.note-header input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #22c55e;
+  cursor: pointer;
+}
+
+
+.overdue {
+  background-color: #ef4444;
+  color: #fee2e2;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 999px;
+  cursor: default; /* or pointer if clickable */
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* add spacing between checkbox & title */
+}
+

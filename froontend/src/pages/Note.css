@@ -1,0 +1,36 @@
+.create-note-page {
+  background-color: #1e293b;  /* dark background */
+  color: #f8fafc;             /* white text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.create-note-page input{
+
+  background-color: #374151;
+  color: #f8fafc;
+  border: 1px solid #4b5563;
+  padding: 8px 10px;       /* less padding for smaller height */
+  border-radius: 6px;
+  width: 400px;
+  height: 40px;            /* decreased height */
+  font-size: 16px;
+
+}
+
+.create-note-page textarea {
+  background-color: #374151; /* slightly lighter input background */
+  color: #f8fafc;            /* white text in input */
+  border: 1px solid #4b5563;
+  padding: 10px;
+  border-radius: 6px;
+  width: 400px;
+  height: 100px;
+}
+
+.create-note-page input::placeholder,
+.create-note-page textarea::placeholder {
+  color: #d1d5db; 
+}

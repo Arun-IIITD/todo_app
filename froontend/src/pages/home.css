@@ -1,0 +1,159 @@
+/* ===============================
+   HOME PAGE
+================================= */
+.home-page {
+  padding: 80px 24px 24px; /* top padding accounts for navbar height */
+  min-height: 100vh;
+  background-color: #0f172a; /* dark background */
+  color: #f8fafc; /* default text color */
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===============================
+   HEADER
+================================= */
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.home-logo h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #a8acb0; /* subtle light color */
+  margin: 0;
+  word-break: break-word;
+}
+
+/* ===============================
+   SORT CONTROLS
+================================= */
+.sort-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sort-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background-color: #1e293b;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+}
+
+/* Optional button if ever needed */
+.sort-btn {
+  background-color: #1e293b;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.sort-btn:hover {
+  background-color: #334155;
+}
+
+/* ===============================
+   EMPTY / LOADING STATES
+================================= */
+.empty-state {
+  text-align: center;
+  font-size: 18px;
+  color: #94a3b8;
+  margin-top: 50px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* account for navbar height */
+  font-size: 20px;
+  color: #f8fafc;
+}
+
+/* ===============================
+   NOTES GRID
+================================= */
+.notes-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .notes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .notes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   OPTIONAL ENHANCEMENTS
+================================= */
+
+/* Hover effect for cards wrapper */
+.notes-grid > *:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s ease;
+}
+
+/* Smooth transition for empty state */
+.empty-state p {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.empty-state p:hover {
+  opacity: 1;
+}
+
+/* Subtle shadow for grid cards */
+.notes-grid > * {
+  transition: box-shadow 0.2s ease;
+}
+
+/* Gap fix for header on mobile */
+@media (max-width: 500px) {
+  .home-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

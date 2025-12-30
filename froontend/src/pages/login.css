@@ -1,0 +1,150 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* PAGE */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #0f172a;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.app-logo svg {
+  color: #60a5fa;
+}
+
+.app-logo span {
+  font-size: 28px;
+  font-weight: 800;
+  color: #60a5fa;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+
+/* CARD */
+.login-page .container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* SUBTITLE */
+.auth-subtitle {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 24px;
+  color: #a41010;
+}
+
+/* FORM */
+.login-page form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.login-page label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-page input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #000;
+}
+
+.login-page input:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+/* BUTTON */
+.login-page button {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login-page button:hover {
+  background: #357ab8;
+}
+
+/* SWITCH */
+.auth-switch {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.auth-switch a {
+  color: #4a90e2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Remove blue outline/focus from toast container and toasts */
+.Toastify__toast-container {
+  outline: none !important;
+}
+
+.Toastify__toast,
+.Toastify__toast button,
+.Toastify__toast svg {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+
+
+
+/* RESPONSIVE */
+@media (max-width: 450px) {
+  .login-page .container {
+    padding: 30px 20px;
+  }
+
+  .auth-logo-text {
+    font-size: 24px;
+  }
+}
