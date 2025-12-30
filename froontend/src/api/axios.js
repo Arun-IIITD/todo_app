@@ -1,7 +1,7 @@
 import axios from "axios";
-
+//https://todo-app-0ffx.onrender.com/
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/v1/noteapp/",
+  baseURL: "https://todo-app-0ffx.onrender.com/api/v1/noteapp/",
 });
 
 // REQUEST interceptor (attach token)

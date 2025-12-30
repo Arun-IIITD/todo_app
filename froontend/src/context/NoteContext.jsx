@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import api from "../api/axios"
+import api from "../api/axios";
+
 
 export const NoteContext = createContext();
 
@@ -18,7 +19,7 @@ const NoteProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await api.get(
-        "http://localhost:5000/api/v1/noteapp/get-notes",
+        "https://todo-app-0ffx.onrender.com/api/v1/noteapp/get-notes",
         { headers: getHeaders() }
       );
       //const data = await res.json();
@@ -38,7 +39,7 @@ const NoteProvider = ({ children }) => {
   const createNote = async (note) => {
     try {
       const res = await api.post(
-        "http://localhost:5000/api/v1/noteapp/create-note",
+        "https://todo-app-0ffx.onrender.com/api/v1/noteapp/create-note",
         {
           method: "POST",
           headers: getHeaders(),
@@ -57,7 +58,7 @@ const NoteProvider = ({ children }) => {
   const updateNote = async (id, updatedData) => {
     try {
       const res = await api.put(
-        `http://localhost:5000/api/v1/noteapp/update-note/${id}`,
+        `https://todo-app-0ffx.onrender.com/api/v1/noteapp/update-note/${id}`,
         {
           method: "PUT",
           headers: getHeaders(),
@@ -78,7 +79,7 @@ const NoteProvider = ({ children }) => {
 
   const toggleStatus = async (id) => {
   try {
-    const res = await api.patch( `http://localhost:5000/api/v1/noteapp/update-status/${id}`, {
+    const res = await api.patch( `https://todo-app-0ffx.onrender.com/api/v1/noteapp/update-status/${id}`, {
       method: "PATCH",
       headers: getHeaders(),
     });
@@ -103,7 +104,7 @@ const NoteProvider = ({ children }) => {
   const deleteNote = async (id) => {
     try {
       await api.delete(
-        `http://localhost:5000/api/v1/noteapp/delete-note/${id}`,
+        `https://todo-app-0ffx.onrender.com/api/v1/noteapp/delete-note/${id}`,
         { method: "DELETE", headers: getHeaders() }
       );
       setNotes((prev) => prev.filter((note) => note._id !== id));

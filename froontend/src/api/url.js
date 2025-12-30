@@ -4,7 +4,7 @@ import axios from "axios"
 const token = JSON.parse(localStorage.getItem("user"))?.token;
 
 const BACKEND_URL = axios.create({
-    baseURL: "https://localhost:5000/api/v1/noteapp/",
+    baseURL: "https://todo-app-0ffx.onrender.com/api/v1/noteapp/",
     headers: {
         Authorization: `Bearer ${token}`
     }
