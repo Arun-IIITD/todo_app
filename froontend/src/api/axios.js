@@ -2,6 +2,10 @@ import axios from "axios";
 //https://todo-app-0ffx.onrender.com/
 const api = axios.create({
   baseURL: "https://todo-app-0ffx.onrender.com/api/v1/noteapp/",
+  headers:
+  {
+     "Content-Type": "application/json",
+  },
 });
 
 // REQUEST interceptor (attach token)
@@ -9,6 +13,7 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
+      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

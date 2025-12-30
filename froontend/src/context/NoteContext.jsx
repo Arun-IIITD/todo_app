@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import api from "../api/axios";
 
-
 export const NoteContext = createContext();
 
 const NoteProvider = ({ children }) => {
@@ -18,10 +17,8 @@ const NoteProvider = ({ children }) => {
   const getNotes = async () => {
     setLoading(true);
     try {
-      const res = await api.get(
-        "https://todo-app-0ffx.onrender.com/api/v1/noteapp/get-notes",
-        { headers: getHeaders() }
-      );
+      const res = await api.get("/get-notes");
+    
       //const data = await res.json();
 
 
@@ -38,14 +35,7 @@ const NoteProvider = ({ children }) => {
   // CREATE NOTE
   const createNote = async (note) => {
     try {
-      const res = await api.post(
-        "https://todo-app-0ffx.onrender.com/api/v1/noteapp/create-note",
-        {
-          method: "POST",
-          headers: getHeaders(),
-          body: JSON.stringify(note),
-        }
-      );
+      const res = await api.post("/create-note", note);
       //const data = await res.json();
 
       setNotes((prev) => [res.data, ...prev]);
@@ -57,14 +47,7 @@ const NoteProvider = ({ children }) => {
   // UPDATE NOTE
   const updateNote = async (id, updatedData) => {
     try {
-      const res = await api.put(
-        `https://todo-app-0ffx.onrender.com/api/v1/noteapp/update-note/${id}`,
-        {
-          method: "PUT",
-          headers: getHeaders(),
-          body: JSON.stringify(updatedData),
-        }
-      );
+    const res = await api.put(`/update-note/${id}`, updatedData);
       //const data = await res.json();
 
       if (res.ok) {
@@ -79,10 +62,7 @@ const NoteProvider = ({ children }) => {
 
   const toggleStatus = async (id) => {
   try {
-    const res = await api.patch( `https://todo-app-0ffx.onrender.com/api/v1/noteapp/update-status/${id}`, {
-      method: "PATCH",
-      headers: getHeaders(),
-    });
+    const res = await api.patch(`/update-status/${id}`);
 
     //const updatedNote = await res.json();
 
@@ -103,10 +83,7 @@ const NoteProvider = ({ children }) => {
   // DELETE NOTE
   const deleteNote = async (id) => {
     try {
-      await api.delete(
-        `https://todo-app-0ffx.onrender.com/api/v1/noteapp/delete-note/${id}`,
-        { method: "DELETE", headers: getHeaders() }
-      );
+     await api.delete(`/delete-note/${id}`);
       setNotes((prev) => prev.filter((note) => note._id !== id));
     } catch (err) {
       console.error(err);
